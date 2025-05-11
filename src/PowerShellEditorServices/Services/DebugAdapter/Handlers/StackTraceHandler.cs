@@ -75,14 +75,14 @@ internal class StackTraceHandler(DebugService debugService) : IStackTraceHandler
         newStackFrames.AddRange(
             stackFrameDetails
             .Skip(skip != 0 ? skip - 1 : skip)
-            .Take(take != 0 ? take - 1 : take)
+            .Take(take != 0 ? take - 1 : stackFrameDetails.Count)
             .Select((frame, index) => CreateStackFrame(frame, index + 1))
         );
 
         return new StackTraceResponse
         {
             StackFrames = newStackFrames,
-            TotalFrames = newStackFrames.Count
+            TotalFrames = stackFrameDetails.Count
         };
     }
 
